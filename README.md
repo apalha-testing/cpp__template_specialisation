@@ -2,4 +2,9 @@
 Template specialisation example for non type template parameter
 
 ## Build
-Type `make` in the root directory of the repo.
+### Header implementation: 
+Type `make working` in the root directory of the repo.
+
+### cpp implementation: 
+Type `make not_working` in the root directory of the repo.
+
