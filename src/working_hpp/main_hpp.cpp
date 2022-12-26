@@ -1,6 +1,6 @@
 
 
-#include "template_specialisation_not_working.hpp"
+#include "template_specialisation_hpp.hpp"
 
 int main(){
     foo<1> object_1;

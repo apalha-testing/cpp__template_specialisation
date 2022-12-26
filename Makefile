@@ -1,27 +1,26 @@
 CXX = g++
 
-TARGET_WORKING = template_specialisation_working
-TARGET_NOT_WORKING = template_specialisation_not_working
+TARGET_HPP = template_specialisation_hpp
+TARGET_TPP = template_specialisation_tpp
 BUILD_DIR   = build_make
 INSTALL_DIR = install
 
 CXXFLAGS = -std=c++11
-IFLAGS_WORKING = -I./src/working/
-IFLAGS_NOT_WORKING = -I./src/not_working/
+IFLAGS_HPP = -I./src/working_hpp/
+IFLAGS_TPP = -I./src/working_tpp/
 
-OBJ_NAMES_WORKING =  \
+OBJ_NAMES_HPP =  \
 main
 
-OBJ_NAMES_NOT_WORKING =  \
-main\
-template_specialisation
+OBJ_NAMES_TPP =  \
+main
 
-OBJ_WORKING = $(patsubst %,$(BUILD_DIR)/%_working.o,$(OBJ_NAMES_WORKING))
-OBJ_NOT_WORKING = $(patsubst %,$(BUILD_DIR)/%_not_working.o,$(OBJ_NAMES_NOT_WORKING))
+OBJ_HPP = $(patsubst %,$(BUILD_DIR)/%_hpp.o,$(OBJ_NAMES_HPP))
+OBJ_TPP = $(patsubst %,$(BUILD_DIR)/%_tpp.o,$(OBJ_NAMES_TPP))
 
 dir_guard=@mkdir -p $(@D)
 
-default: not_working
+default: tpp
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
@@ -31,17 +30,17 @@ $(INSTALL_DIR):
 
 .PHONY: clean
 
-$(BUILD_DIR)/%_working.o: src/working/%_working.cpp
-	$(CXX) $(CXXFLAGS) $(IFLAGS_WORKING) $(DFLAGS) $(LFLAGS)-c -o $@ $<
+$(BUILD_DIR)/%_hpp.o: src/working_hpp/%_hpp.cpp
+	$(CXX) $(CXXFLAGS) $(IFLAGS_HPP) $(DFLAGS) $(LFLAGS)-c -o $@ $<
 	
-$(BUILD_DIR)/%_not_working.o: src/not_working/%_not_working.cpp
-	$(CXX) $(CXXFLAGS) $(IFLAGS_NOT_WORKING) $(DFLAGS) $(LFLAGS)-c -o $@ $<
+$(BUILD_DIR)/%_tpp.o: src/working_tpp/%_tpp.cpp
+	$(CXX) $(CXXFLAGS) $(IFLAGS_TPP) $(DFLAGS) $(LFLAGS)-c -o $@ $<
 	
-working: $(BUILD_DIR) $(OBJ_WORKING)
-	${CXX} -o $(TARGET_WORKING) $(OBJ_WORKING)
+hpp: $(BUILD_DIR) $(OBJ_HPP)
+	${CXX} -o $(TARGET_HPP) $(OBJ_HPP)
 	
-not_working: $(BUILD_DIR) $(OBJ_NOT_WORKING)
-	${CXX} -o $(TARGET_NOT_WORKING) $(OBJ_NOT_WORKING)
+tpp: $(BUILD_DIR) $(OBJ_TPP)
+	${CXX} -o $(TARGET_TPP) $(OBJ_TPP)
 		
 clean:
 	rm $(BUILD_DIR)/*.o
